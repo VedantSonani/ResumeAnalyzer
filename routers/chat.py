@@ -22,5 +22,5 @@ async def ask_llm(input : schemas.Prompt):
     answer = await rag_pipeline.get_response(prompt)
 
     return {
-        "msg" : answer
+        "msg" : answer[0]["text"]
     }
