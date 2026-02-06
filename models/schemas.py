@@ -1,5 +1,6 @@
-from pydantic import BaseModel, Field, EmailStr, Optional, List, year
-from datetime import year
+from pydantic import BaseModel, Field, EmailStr
+from typing import Optional, List
+# from datetime import year
 
 class Prompt(BaseModel):
     msg : str = Field(..., min_length=1)

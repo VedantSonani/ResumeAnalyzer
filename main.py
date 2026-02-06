@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routers import documents, chat
 
+
 app = FastAPI(
     title="Resume Analyzer API",
     description="Resume & Job Description parsing with RAG-based matching",
@@ -24,4 +25,4 @@ app.include_router(chat.router)
 
 @app.get("/")
 def root():
-    return {"Hello there, u idiot!"}
+    return {"msg" : "Hello there, u idiot!"}

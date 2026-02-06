@@ -1,7 +1,5 @@
-import os
 from dotenv import load_dotenv
 from fastapi import APIRouter
-from langchain_google_genai import ChatGoogleGenerativeAI
 from services import rag_pipeline
 from models import schemas
 
@@ -12,16 +10,16 @@ router = APIRouter(
     tags=["LLM"]
 )
 
-SYSTEM_PROMPT = ""
-
 @router.post("/")
-async def ask_llm(prompt : schemas.Prompt):
-    message = [
-        ("system", SYSTEM_PROMPT),
-        ("human", prompt.msg)
-    ]
+async def ask_llm(input : schemas.Prompt):
+    '''gemma models dont take system instructions'''
+    # message = [
+    #     ("system", SYSTEM_PROMPT),
+    #     ("human", prompt.msg)
+    # ]
+    prompt = rag_pipeline.get_prompt(input.msg)
 
-    answer = await rag_pipeline.get_response(message)
+    answer = await rag_pipeline.get_response(prompt)
 
     return {
         "msg" : answer
