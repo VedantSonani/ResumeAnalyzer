@@ -5,7 +5,7 @@ from services.rag_pipeline import get_llm
 def parse_document(file):
     # will add code to save file later on, for now just read and extract text from pdf
     text = ""
-    with pdfplumber.open(file) as pdf:
+    with pdfplumber.open(file.file) as pdf:
         for page in pdf.pages:
             text += page.extract_text()
 
