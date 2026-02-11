@@ -1,16 +1,60 @@
-import pdfplumber
+from langchain_community.document_loaders import PDFPlumberLoader
+from langchain_pinecone import PineconeVectorStore, PineconeEmbeddings
+from pinecone import Pinecone
+import os
+from dotenv import load_dotenv
 from models import schemas
-from services.rag_pipeline import get_llm
+from services.rag_pipeline import LLM
+from services.embedding_service import json_splitter
+import aiofiles
+import hashlib
+from pathlib import Path as FilePath
 
-def parse_document(file):
-    # will add code to save file later on, for now just read and extract text from pdf
-    text = ""
-    with pdfplumber.open(file.file) as pdf:
-        for page in pdf.pages:
-            text += page.extract_text()
+load_dotenv()
+# ----PINECODE SETUP----
+PINECODE_API_KEY = os.getenv("PINECODE_API_KEY")
 
-    llm = get_llm()
-    structured_output = llm.with_structured_output(schemas.Resume, method="function_calling")
-    result = structured_output.invoke(text)
+pc = Pinecone(api_key=PINECODE_API_KEY)
+index_name = "resume-analyzer"
+index = pc.Index(index_name)
+embeddings = PineconeEmbeddings(model="llama-text-embed-v2", api_key=PINECODE_API_KEY)
+vector_store = PineconeVectorStore(index=index, embedding=embeddings)
+# ------------------------
 
-    return result
+UPLOAD_DIR = FilePath("uploads/processed")
+UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+
+async def parse_document(file_names):
+    model = LLM
+    structured_output = model.with_structured_output(schemas.Resume, method="function_calling")
+    
+    for file in file_names:
+        text = ""
+        loader = PDFPlumberLoader(f"uploads/{file}")
+        docs = loader.load()
+        print(f"Loaded {len(docs)} pages from {file}")
+        
+        for page in docs:
+            text += page.page_content + "\n"
+
+        result = await structured_output.ainvoke(text)
+
+        clean_name = result.name.lower().replace(" ", "_")
+        unique_suffix = hashlib.md5(result.email.encode()).hexdigest()[:6]
+        doc_id = f"{clean_name}_{unique_suffix}"
+        
+        file_path = UPLOAD_DIR / f"{doc_id}.json"
+
+        async with aiofiles.open(file_path, 'w') as f:
+            await f.write(result.model_dump_json(indent=4)) 
+
+        print(f"Finished processing {file}...Starting embedding generation")
+        
+        # --- Generate embeddings for the processed document ---
+        chunks = json_splitter(result.model_dump())
+
+        ids = [chunk.metadata['chunk_id'] for chunk in chunks]
+        print(f"Generated {len(chunks)} chunks for {file}")
+
+        vector_store.add_documents(documents=chunks, ids=ids)
+        print(f"Added {len(chunks)} chunks to Pinecone index for {doc_id}")
