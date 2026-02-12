@@ -12,7 +12,6 @@ router = APIRouter(
 
 @router.post("/")
 async def ask_llm(input : schemas.Prompt):
-    '''gemma models dont take system instructions'''
     # message = [
     #     ("system", SYSTEM_PROMPT),
     #     ("human", prompt.msg)
@@ -22,5 +21,5 @@ async def ask_llm(input : schemas.Prompt):
     answer = await rag_pipeline.get_response(prompt)
 
     return {
-        "msg" : answer[0]["text"]
+        "msg" : answer
     }

@@ -1,6 +1,7 @@
 from langchain_community.document_loaders import PDFPlumberLoader
 from langchain_pinecone import PineconeVectorStore, PineconeEmbeddings
 from pinecone import Pinecone
+from typing import List
 import os
 from dotenv import load_dotenv
 from models import schemas
@@ -24,8 +25,9 @@ vector_store = PineconeVectorStore(index=index, embedding=embeddings)
 UPLOAD_DIR = FilePath("uploads/processed")
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
-async def parse_document(file_names):
+async def parse_resume(file_names:List[str]):
     model = LLM
+
     structured_output = model.with_structured_output(schemas.Resume, method="function_calling")
     
     for file in file_names:
