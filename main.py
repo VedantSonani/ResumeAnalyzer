@@ -23,3 +23,7 @@ app.add_middleware(
 app.include_router(documents.router)
 app.include_router(chat.router)
 app.include_router(frontend.router)
+
+
+# Job Description to test the project
+# Get me top 3 candidates that are good match for the following Job Description:\n\nJob Description: Junior Generative AI Developer (2026 Graduate Cohort)\n\nRole Overview:\nWe are hiring a Junior Generative AI Developer for our 2026 graduate batch.\nThe ideal candidate is a final-year B.Tech student (Class of 2026) with hands-on experience building production-ready AI applications using LLMs, RAG pipelines, and full-stack Python frameworks.\n\nKey Responsibilities:\n- Build and deploy LLM-powered applications using LangChain and OpenAI APIs\n- Develop multi-agent RAG systems with vector databases (FAISS, Pinecone, pgvector)\n- Integrate AI backends with web frameworks (Django / Flask)\n- Work with local LLMs using tools like Ollama or LM Studio\n- Build and maintain full-stack AI web applications with REST APIs

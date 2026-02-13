@@ -19,7 +19,7 @@ pc = Pinecone(api_key=PINECODE_API_KEY)
 index_name = "resume-analyzer"
 index = pc.Index(index_name)
 embeddings = PineconeEmbeddings(model="llama-text-embed-v2", api_key=PINECODE_API_KEY)
-vector_store = PineconeVectorStore(index=index, embedding=embeddings)
+vector_store = PineconeVectorStore(index=index, embedding=embeddings, namespace="resumes")
 # ------------------------
 
 SYSTEM_PROMPT = ""
