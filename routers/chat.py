@@ -16,9 +16,9 @@ async def ask_llm(input : schemas.Prompt):
     #     ("system", SYSTEM_PROMPT),
     #     ("human", prompt.msg)
     # ]
-    prompt = rag_pipeline.get_prompt(input.msg)
+    # prompt = rag_pipeline.get_prompt(input.msg)
 
-    answer = await rag_pipeline.get_response(prompt)
+    answer = await rag_pipeline.get_response(input.msg)
 
     return {
         "msg" : answer

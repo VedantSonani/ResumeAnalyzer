@@ -14,12 +14,13 @@ from pathlib import Path as FilePath
 load_dotenv()
 # ----PINECODE SETUP----
 PINECODE_API_KEY = os.getenv("PINECODE_API_KEY")
-
+NAMESPACE = os.getenv("NAMESPACE")
 pc = Pinecone(api_key=PINECODE_API_KEY)
+
 index_name = "resume-analyzer"
 index = pc.Index(index_name)
 embeddings = PineconeEmbeddings(model="llama-text-embed-v2", api_key=PINECODE_API_KEY)
-vector_store = PineconeVectorStore(index=index, embedding=embeddings, namespace="resumes")
+vector_store = PineconeVectorStore(index=index, embedding=embeddings, namespace=NAMESPACE)
 # ------------------------
 
 UPLOAD_DIR = FilePath("uploads/processed")

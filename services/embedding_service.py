@@ -9,11 +9,11 @@ def json_splitter(doc):
     final_docs = []
     # --- Identity & Summary Chunk ---
     # summary is like a free throw, everyone says stuff but it may not be super reliable. So we can use it as a quick intro but not rely heavily on it for skills extraction or scoring.
-    # summary_content = f"Candidate: {doc['name']}\nSummary: {doc['summary']}\nCareer Level: {doc['career_level']}"
-    # final_docs.append(Document(
-    #     page_content=summary_content, 
-    #     metadata={"doc_id": doc_id, "chunk_id": f"{doc_id}_summary", "section": "summary"}
-    # ))
+    summary_content = f"Candidate: {doc['name']}\nSummary: {doc['summary']}\nCareer Level: {doc['career_level']}"
+    final_docs.append(Document(
+        page_content=summary_content, 
+        metadata={"doc_id": doc_id, "chunk_id": f"{doc_id}_summary", "section": "summary"}
+    ))
 
     # --- Education Chunk ---
     final_docs.append(Document(

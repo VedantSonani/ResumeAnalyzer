@@ -5,12 +5,14 @@ from langchain_pinecone import PineconeVectorStore, PineconeEmbeddings
 from langchain_core.tools import tool
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_classic.agents import AgentExecutor, create_tool_calling_agent
+# from langchain.agents import create_agent
 from pinecone import Pinecone
-from typing import List, Tuple
+from typing import List, Tuple, Dict
 from models import schemas
  
 load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+NAMESPACE = os.getenv("NAMESPACE")
 
 # ----PINECODE SETUP----
 PINECODE_API_KEY = os.getenv("PINECODE_API_KEY")
@@ -19,7 +21,7 @@ pc = Pinecone(api_key=PINECODE_API_KEY)
 index_name = "resume-analyzer"
 index = pc.Index(index_name)
 embeddings = PineconeEmbeddings(model="llama-text-embed-v2", api_key=PINECODE_API_KEY)
-vector_store = PineconeVectorStore(index=index, embedding=embeddings, namespace="resumes")
+vector_store = PineconeVectorStore(index=index, embedding=embeddings, namespace=NAMESPACE)
 # ------------------------
 
 SYSTEM_PROMPT = ""
@@ -53,7 +55,7 @@ async def get_response(message):
     return response
 
 @tool
-def perform_sementic_search(query: str, top_k: int, filter: List[str]=None) -> List[Tuple]:
+def perform_sementic_search(query: str, top_k: int, filter: Dict | None = None) -> List[Tuple]:
     """
         Performs a semantic (context-based) search across the vector database to retrieve 
         the most relevant information based on conceptual similarity rather than exact 
@@ -131,18 +133,33 @@ This will return a structured object containing:
 You MUST wait for this tool's response before proceeding.
 
 ### STEP 2 — Run Targeted Semantic Searches
-Using the structured output from `parse_job_description`, call `perform_sementic_search` 
-ONCE for EACH of the following aspects — minimum 5 search calls:
+Using the structured output from `parse_job_description`, call `perform_sementic_search`
+for each key concept extracted — minimum 5 searches, maximum 7.
 
-  1. One query built from `core_skills` fields
-  2. One query built from `domain_knowledge` fields  
-  3. One query built from `education` + `experience_level` fields
-  4. One query built from `nice_to_haves` fields
-  5. One query built from project/work experience alignment
+For each search, you must decide:
+  1. What is the concept I am trying to find evidence for?
+  2. Which sections would realistically contain that evidence?
+  3. Should I search one section or combine multiple using {{[...]}}?
 
-Use `top_k=10` for every query to cast a wide net before re-ranking.
-DO NOT generate your own queries from scratch — derive them from Step 1's output only.
+Available section values:
+"skills" | "experience" | "projects" | "education" | "certificates" | "summary"
 
+Use this reasoning to guide your filter decisions:
+- A concept that candidates typically LIST → "skills"
+- A concept that candidates typically DEMONSTRATE → "projects", "experience"  
+- A concept that spans both claiming and demonstrating → {{"section": {{"$in": ["skills", "projects", "experience"]}}}}
+- Academic background → {{"section": "education"}} only
+- Broad profile fit or career intent → {{"section": "summary"}}
+- Formal training or courses → {{"section": "certificates"}}
+
+Rules:
+- Derive ALL query text strictly from `parse_job_description` output — never invent queries.
+- Always justify your filter choice mentally before each search call.
+- Never search without a filter — every call must have one.
+- Never repeat the same query + filter combination twice.
+- Always use top_k: 10.
+- Complete ALL searches before proceeding to STEP 3.
+         
 ### STEP 3 — Aggregate & Deduplicate Results
 - Collect all results across all search calls
 - Remove duplicate candidates (same name appearing multiple times)
@@ -225,6 +242,13 @@ Present your final answer in this exact structure:
 ])
 
 tools = [perform_sementic_search, parse_job_description]
+
+# agent = create_agent(
+#     tools=tools,
+#     model=LLM
+# )
+# response = agent.invoke({"role":"user", "content":"Get me top 3 candidates that are good match for the following Job Description:\n\nJob Description: Junior Generative AI Developer (2026 Graduate Cohort)\n\nRole Overview:\nWe are hiring a Junior Generative AI Developer for our 2026 graduate batch.\nThe ideal candidate is a final-year B.Tech student (Class of 2026) with hands-on experience building production-ready AI applications using LLMs, RAG pipelines, and full-stack Python frameworks.\n\nKey Responsibilities:\n- Build and deploy LLM-powered applications using LangChain and OpenAI APIs\n- Develop multi-agent RAG systems with vector databases (FAISS, Pinecone, pgvector)\n- Integrate AI backends with web frameworks (Django / Flask)\n- Work with local LLMs using tools like Ollama or LM Studio\n- Build and maintain full-stack AI web applications with REST APIs"})
+# print(response)
 
 agent = create_tool_calling_agent(
     tools=tools,
