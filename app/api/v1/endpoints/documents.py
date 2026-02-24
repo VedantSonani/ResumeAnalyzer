@@ -1,20 +1,19 @@
 from fastapi import APIRouter, UploadFile, File, Form, BackgroundTasks
 from typing import List, Literal
-from services.document_parser import parse_resume
-from dotenv import load_dotenv
+from app.services.document_parser import parse_resume
 import aiofiles
-from pathlib import Path as FilePath
-
-load_dotenv()
+from app.config import settings
+from pathlib import Path
 
 router = APIRouter(
     prefix="/documents",
     tags=["Documents"]
 )
 
-UPLOAD_DIR = FilePath("uploads")
-UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+UPLOAD_DIR = Path(settings.UPLOAD_DIR)
 
+# will add a middleware later to verify the jwt token and extract user info, 
+# for now we will do it in the endpoint itself
 @router.post("/upload")
 async def upload_docs( background_tasks: BackgroundTasks, 
                       Files: List[UploadFile] = File(...), 

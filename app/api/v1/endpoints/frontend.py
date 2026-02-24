@@ -9,6 +9,7 @@ router = APIRouter(
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 templates = Jinja2Templates(directory=str(BASE_DIR / "frontend"))
 
 @router.get("/", response_class=HTMLResponse)
