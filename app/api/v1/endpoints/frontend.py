@@ -8,9 +8,9 @@ router = APIRouter(
 )
 
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parents[3]
 
-templates = Jinja2Templates(directory=str(BASE_DIR / "frontend"))
+templates = Jinja2Templates(directory=str(BASE_DIR /'frontend'/'templates'))
 
 @router.get("/", response_class=HTMLResponse)
 async def serve_home(request: Request):
