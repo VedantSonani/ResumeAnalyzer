@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>How it Works - ResumeLens</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#7c3bed",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#0f0f12",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    backgroundImage: {
+                        'hero-glow': 'radial-gradient(circle at 50% 0%, rgba(124, 59, 237, 0.15) 0%, rgba(15, 15, 18, 0) 70%)',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 3s infinite',
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .glass-panel {
+            background: rgba(30, 30, 40, 0.3);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .text-gradient {
+            background: linear-gradient(90deg, #7c3bed 0%, #22d3ee 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .shape-blob {
+            background: linear-gradient(45deg, #7c3bed 0%, #4c1d95 100%);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            position: absolute;
+            opacity: 0.15;
+            z-index: 0;
+            filter: blur(40px);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-[#0f0f12] text-slate-300 antialiased min-h-screen relative flex flex-col font-display selection:bg-primary selection:text-white">
+    <!-- Background -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="shape-blob w-96 h-96 top-[-10%] left-[-10%] animate-float"></div>
+        <div class="shape-blob w-[500px] h-[500px] bottom-[20%] right-[-10%] rounded-full animate-float-delayed"
+            style="background: radial-gradient(circle, #312e81 0%, transparent 70%);"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 glass-panel border-b-0 border-b-white/5 bg-[#0f0f12]/60">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <a href="/" class="flex items-center gap-3">
+                    <div
+                        class="w-10 h-10 bg-gradient-to-br from-primary to-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-primary/20">
+                        <span class="material-symbols-outlined text-white text-2xl">view_in_ar</span>
+                    </div>
+                    <span class="text-white text-xl font-bold tracking-tight">ResumeLens</span>
+                </a>
+            </div>
+            <div class="hidden md:flex items-center gap-8">
+                <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors"
+                    href="/features">Features</a>
+                <a class="text-sm font-medium text-white transition-colors" href="/how-it-works">How it Works</a>
+                <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors"
+                    href="/pricing">Pricing</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <a class="hidden sm:block text-sm font-semibold text-white hover:text-primary transition-colors"
+                    href="#">Login</a>
+                <button
+                    class="bg-primary hover:bg-primary/90 text-white text-sm font-bold py-2.5 px-5 rounded-lg transition-all shadow-lg shadow-primary/20 hover:shadow-primary/40 transform hover:-translate-y-0.5">Start
+                    Free</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <main class="relative z-10 flex-grow pt-32 pb-20 px-6">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16 animate-fade-in-up">
+                <h1 class="text-5xl md:text-6xl font-extrabold text-white mb-6">How it <span
+                        class="text-gradient">Works</span></h1>
+                <p class="text-xl text-slate-400 max-w-2xl mx-auto">From upload to interview in 4 simple steps.</p>
+            </div>
+
+            <div class="space-y-12">
+                <!-- Step 1 -->
+                <div
+                    class="glass-panel p-8 rounded-2xl flex flex-col md:flex-row gap-8 items-center animate-fade-in-up delay-100">
+                    <div
+                        class="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-2xl font-bold text-white shadow-lg shadow-primary/30 flex-shrink-0">
+                        1</div>
+                    <div class="flex-grow">
+                        <h3 class="text-2xl font-bold text-white mb-2">Upload Resumes</h3>
+                        <p class="text-slate-400">Drag and drop individual files or bulk upload entire folders. We
+                            support PDF, DOCX, and TXT formats. Our secure pipeline encrypts your data instantly.</p>
+                    </div>
+                    <div
+                        class="w-full md:w-1/3 h-32 bg-white/5 rounded-xl border border-white/10 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-4xl text-slate-600">cloud_upload</span>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div
+                    class="glass-panel p-8 rounded-2xl flex flex-col md:flex-row gap-8 items-center animate-fade-in-up delay-200">
+                    <div
+                        class="w-16 h-16 rounded-full bg-cyan-600 flex items-center justify-center text-2xl font-bold text-white shadow-lg shadow-cyan-600/30 flex-shrink-0">
+                        2</div>
+                    <div class="flex-grow">
+                        <h3 class="text-2xl font-bold text-white mb-2">Define Your Ideal Candidate</h3>
+                        <p class="text-slate-400">Don't rely on keywords. Tell our AI agent what you're looking for in
+                            plain English: "A marketing manager who has led remote teams and knows SEO."</p>
+                    </div>
+                    <div
+                        class="w-full md:w-1/3 h-32 bg-white/5 rounded-xl border border-white/10 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-4xl text-slate-600">chat</span>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div
+                    class="glass-panel p-8 rounded-2xl flex flex-col md:flex-row gap-8 items-center animate-fade-in-up delay-300">
+                    <div
+                        class="w-16 h-16 rounded-full bg-pink-600 flex items-center justify-center text-2xl font-bold text-white shadow-lg shadow-pink-600/30 flex-shrink-0">
+                        3</div>
+                    <div class="flex-grow">
+                        <h3 class="text-2xl font-bold text-white mb-2">AI Ranking & Scoring</h3>
+                        <p class="text-slate-400">ResumeLens scores every candidate against your criteria, highlighting
+                            strengths and flagging potential gaps. See a ranked list instantly.</p>
+                    </div>
+                    <div
+                        class="w-full md:w-1/3 h-32 bg-white/5 rounded-xl border border-white/10 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-4xl text-slate-600">leaderboard</span>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div
+                    class="glass-panel p-8 rounded-2xl flex flex-col md:flex-row gap-8 items-center animate-fade-in-up delay-500">
+                    <div
+                        class="w-16 h-16 rounded-full bg-green-600 flex items-center justify-center text-2xl font-bold text-white shadow-lg shadow-green-600/30 flex-shrink-0">
+                        4</div>
+                    <div class="flex-grow">
+                        <h3 class="text-2xl font-bold text-white mb-2">Shortlist & Interview</h3>
+                        <p class="text-slate-400">Select your favorites, export summaries, or schedule interviews
+                            directly. Move the best talent to the next stage faster than ever.</p>
+                    </div>
+                    <div
+                        class="w-full md:w-1/3 h-32 bg-white/5 rounded-xl border border-white/10 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-4xl text-slate-600">person_check</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 text-center">
+                <button
+                    class="bg-primary hover:bg-primary/90 text-white text-lg font-bold py-4 px-10 rounded-lg transition-all shadow-lg hover:shadow-primary/40 transform hover:-translate-y-1">
+                    Start Your Search Now
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer (Simplified) -->
+    <footer class="relative z-10 py-12 px-6 border-t border-white/5 bg-[#0f0f12]/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-slate-500 text-sm">
+            <div class="flex items-center gap-2 mb-4 md:mb-0">
+                <span class="font-semibold text-slate-400">ResumeLens</span>
+                <span>© 2024</span>
+            </div>
+            <div class="flex gap-6">
+                <a class="hover:text-white transition-colors" href="#">Privacy</a>
+                <a class="hover:text-white transition-colors" href="#">Terms</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

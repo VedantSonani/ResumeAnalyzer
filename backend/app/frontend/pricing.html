@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Pricing - ResumeLens</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#7c3bed",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#0f0f12",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    backgroundImage: {
+                        'hero-glow': 'radial-gradient(circle at 50% 0%, rgba(124, 59, 237, 0.15) 0%, rgba(15, 15, 18, 0) 70%)',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 3s infinite',
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .glass-panel {
+            background: rgba(30, 30, 40, 0.3);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .text-gradient {
+            background: linear-gradient(90deg, #7c3bed 0%, #22d3ee 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .shape-blob {
+            background: linear-gradient(45deg, #7c3bed 0%, #4c1d95 100%);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            position: absolute;
+            opacity: 0.15;
+            z-index: 0;
+            filter: blur(40px);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-[#0f0f12] text-slate-300 antialiased min-h-screen relative flex flex-col font-display selection:bg-primary selection:text-white">
+    <!-- Background -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="shape-blob w-96 h-96 top-[-10%] left-[-10%] animate-float"></div>
+        <div class="shape-blob w-[500px] h-[500px] bottom-[20%] right-[-10%] rounded-full animate-float-delayed"
+            style="background: radial-gradient(circle, #312e81 0%, transparent 70%);"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 glass-panel border-b-0 border-b-white/5 bg-[#0f0f12]/60">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <a href="/" class="flex items-center gap-3">
+                    <div
+                        class="w-10 h-10 bg-gradient-to-br from-primary to-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-primary/20">
+                        <span class="material-symbols-outlined text-white text-2xl">view_in_ar</span>
+                    </div>
+                    <span class="text-white text-xl font-bold tracking-tight">ResumeLens</span>
+                </a>
+            </div>
+            <div class="hidden md:flex items-center gap-8">
+                <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors"
+                    href="/features">Features</a>
+                <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors"
+                    href="/how-it-works">How it Works</a>
+                <a class="text-sm font-medium text-white transition-colors" href="/pricing">Pricing</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <a class="hidden sm:block text-sm font-semibold text-white hover:text-primary transition-colors"
+                    href="#">Login</a>
+                <button
+                    class="bg-primary hover:bg-primary/90 text-white text-sm font-bold py-2.5 px-5 rounded-lg transition-all shadow-lg shadow-primary/20 hover:shadow-primary/40 transform hover:-translate-y-0.5">Start
+                    Free</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <main class="relative z-10 flex-grow pt-32 pb-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 animate-fade-in-up">
+                <h1 class="text-5xl md:text-6xl font-extrabold text-white mb-6">Simple <span
+                        class="text-gradient">Pricing</span></h1>
+                <p class="text-xl text-slate-400 max-w-2xl mx-auto">Choose the plan that fits your recruitment needs.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Free Plan -->
+                <div
+                    class="glass-panel p-8 rounded-2xl border border-white/5 hover:border-white/10 transition-all flex flex-col">
+                    <h3 class="text-xl font-bold text-white mb-2">Starter</h3>
+                    <div class="text-4xl font-extrabold text-white mb-6">$0 <span
+                            class="text-base font-normal text-slate-500">/mo</span></div>
+                    <ul class="space-y-4 mb-8 flex-grow">
+                        <li class="flex items-center gap-2"><span
+                                class="material-symbols-outlined text-green-400 text-sm">check</span> 5 Resumes / month
+                        </li>
+                        <li class="flex items-center gap-2"><span
+                                class="material-symbols-outlined text-green-400 text-sm">check</span> Basic Parsing</li>
+                        <li class="flex items-center gap-2"><span
+                                class="material-symbols-outlined text-green-400 text-sm">check</span> Email Support</li>
+                    </ul>
+                    <button
+                        class="w-full py-3 rounded-lg border border-white/20 text-white font-semibold hover:bg-white/5 transition-colors">Start
+                        Free</button>
+                </div>
+
+                <!-- Pro Plan -->
+                <div
+                    class="glass-panel p-8 rounded-2xl border border-primary/50 relative flex flex-col transform md:-translate-y-4 shadow-xl shadow-primary/10">
+                    <div
+                        class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
+                        Most Popular</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Pro</h3>
+                    <div class="text-4xl font-extrabold text-white mb-6">$49 <span
+                            class="text-base font-normal text-slate-500">/mo</span></div>
+                    <ul class="space-y-4 mb-8 flex-grow">
+                        <li class="flex items-center gap-2"><span
+                                class="material-symbols-outlined text-green-400 text-sm">check</span> 500 Resumes /
+                            month</li>
+                        <li class="flex items-center gap-2"><span
+                                class="material-symbols-outlined text-green-400 text-sm">check</span> Advanced AI
+                            Analysis</li>
+                        <li class="flex items-center gap-2"><span
+                                class="material-symbols-outlined text-green-400 text-sm">check</span> PDF Summaries</li>
+                        <li class="flex items-center gap-2"><span
+                                class="material-symbols-outlined text-green-400 text-sm">check</span> Priority Support
+                        </li>
+                    </ul>
+                    <button
+                        class="w-full py-3 rounded-lg bg-primary hover:bg-primary/90 text-white font-bold transition-shadow shadow-lg shadow-primary/25">Get
+                        Pro</button>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div
+                    class="glass-panel p-8 rounded-2xl border border-white/5 hover:border-white/10 transition-all flex flex-col">
+                    <h3 class="text-xl font-bold text-white mb-2">Enterprise</h3>
+                    <div class="text-4xl font-extrabold text-white mb-6">Custom</div>
+                    <ul class="space-y-4 mb-8 flex-grow">
+                        <li class="flex items-center gap-2"><span
+                                class="material-symbols-outlined text-green-400 text-sm">check</span> Unlimited Resumes
+                        </li>
+                        <li class="flex items-center gap-2"><span
+                                class="material-symbols-outlined text-green-400 text-sm">check</span> Custom API
+                            Integration</li>
+                        <li class="flex items-center gap-2"><span
+                                class="material-symbols-outlined text-green-400 text-sm">check</span> Dedicated Success
+                            Manager</li>
+                        <li class="flex items-center gap-2"><span
+                                class="material-symbols-outlined text-green-400 text-sm">check</span> SSO & Role-Based
+                            Access</li>
+                    </ul>
+                    <button
+                        class="w-full py-3 rounded-lg border border-white/20 text-white font-semibold hover:bg-white/5 transition-colors">Contact
+                        Sales</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer (Simplified) -->
+    <footer class="relative z-10 py-12 px-6 border-t border-white/5 bg-[#0f0f12]/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-slate-500 text-sm">
+            <div class="flex items-center gap-2 mb-4 md:mb-0">
+                <span class="font-semibold text-slate-400">ResumeLens</span>
+                <span>© 2024</span>
+            </div>
+            <div class="flex gap-6">
+                <a class="hover:text-white transition-colors" href="#">Privacy</a>
+                <a class="hover:text-white transition-colors" href="#">Terms</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,1 @@
+from app.agents.prompts.agent_prompt import SYSTEM_PROMPT

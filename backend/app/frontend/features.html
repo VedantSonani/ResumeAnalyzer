@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Features - ResumeLens</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#7c3bed",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#0f0f12",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    backgroundImage: {
+                        'hero-glow': 'radial-gradient(circle at 50% 0%, rgba(124, 59, 237, 0.15) 0%, rgba(15, 15, 18, 0) 70%)',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 3s infinite',
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .glass-panel {
+            background: rgba(30, 30, 40, 0.3);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .text-gradient {
+            background: linear-gradient(90deg, #7c3bed 0%, #22d3ee 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .shape-blob {
+            background: linear-gradient(45deg, #7c3bed 0%, #4c1d95 100%);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            position: absolute;
+            opacity: 0.15;
+            z-index: 0;
+            filter: blur(40px);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-[#0f0f12] text-slate-300 antialiased min-h-screen relative flex flex-col font-display selection:bg-primary selection:text-white">
+    <!-- Background -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="shape-blob w-96 h-96 top-[-10%] left-[-10%] animate-float"></div>
+        <div class="shape-blob w-[500px] h-[500px] bottom-[20%] right-[-10%] rounded-full animate-float-delayed"
+            style="background: radial-gradient(circle, #312e81 0%, transparent 70%);"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 w-full z-50 glass-panel border-b-0 border-b-white/5 bg-[#0f0f12]/60">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <a href="/" class="flex items-center gap-3">
+                    <div
+                        class="w-10 h-10 bg-gradient-to-br from-primary to-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-primary/20">
+                        <span class="material-symbols-outlined text-white text-2xl">view_in_ar</span>
+                    </div>
+                    <span class="text-white text-xl font-bold tracking-tight">ResumeLens</span>
+                </a>
+            </div>
+            <div class="hidden md:flex items-center gap-8">
+                <a class="text-sm font-medium text-white transition-colors" href="/features">Features</a>
+                <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors"
+                    href="/how-it-works">How it Works</a>
+                <a class="text-sm font-medium text-slate-300 hover:text-white transition-colors"
+                    href="/pricing">Pricing</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <a class="hidden sm:block text-sm font-semibold text-white hover:text-primary transition-colors"
+                    href="#">Login</a>
+                <button
+                    class="bg-primary hover:bg-primary/90 text-white text-sm font-bold py-2.5 px-5 rounded-lg transition-all shadow-lg shadow-primary/20 hover:shadow-primary/40 transform hover:-translate-y-0.5">Start
+                    Free</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <main class="relative z-10 flex-grow pt-32 pb-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 animate-fade-in-up">
+                <h1 class="text-5xl md:text-6xl font-extrabold text-white mb-6">Powerful <span
+                        class="text-gradient">Features</span></h1>
+                <p class="text-xl text-slate-400 max-w-2xl mx-auto">Everything you need to streamline your recruitment
+                    process with AI.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Natural Language Search -->
+                <div class="glass-panel p-8 rounded-2xl group hover:bg-white/5 transition-all">
+                    <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-primary text-2xl">search</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Natural Language Search</h3>
+                    <p class="text-slate-400 leading-relaxed">Simply ask "Find me a senior React dev who knows Python"
+                        and get instant, accurate results without complex filters.</p>
+                </div>
+
+                <!-- Bias Mitigation -->
+                <div class="glass-panel p-8 rounded-2xl group hover:bg-white/5 transition-all">
+                    <div class="w-12 h-12 bg-cyan-500/10 rounded-xl flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-cyan-400 text-2xl">verified_user</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Bias Detection</h3>
+                    <p class="text-slate-400 leading-relaxed">Automatically hide PII (Personal Identifiable Information)
+                        to ensure fair, merit-based candidate screening.</p>
+                </div>
+
+                <!-- Skill Parsing -->
+                <div class="glass-panel p-8 rounded-2xl group hover:bg-white/5 transition-all">
+                    <div class="w-12 h-12 bg-pink-500/10 rounded-xl flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-pink-400 text-2xl">psychology</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Contextual Skill Parsing</h3>
+                    <p class="text-slate-400 leading-relaxed">Distinguish between a primary skill and a one-off mention
+                        with our context-aware AI engine.</p>
+                </div>
+
+                <!-- PDF Export -->
+                <div class="glass-panel p-8 rounded-2xl group hover:bg-white/5 transition-all">
+                    <div class="w-12 h-12 bg-orange-500/10 rounded-xl flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-orange-400 text-2xl">picture_as_pdf</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Instant Summaries</h3>
+                    <p class="text-slate-400 leading-relaxed">Generate concise 1-page candidate summaries to share with
+                        hiring managers instantly.</p>
+                </div>
+
+                <!-- Integration -->
+                <div class="glass-panel p-8 rounded-2xl group hover:bg-white/5 transition-all">
+                    <div class="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-green-400 text-2xl">hub</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">ATS Integration</h3>
+                    <p class="text-slate-400 leading-relaxed">Seamlessly connect with Greenhouse, Lever, and other major
+                        ATS platforms to sync candidate data.</p>
+                </div>
+
+                <!-- Analytics -->
+                <div class="glass-panel p-8 rounded-2xl group hover:bg-white/5 transition-all">
+                    <div class="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center mb-6">
+                        <span class="material-symbols-outlined text-purple-400 text-2xl">analytics</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Hiring Analytics</h3>
+                    <p class="text-slate-400 leading-relaxed">Track time-to-hire, source quality, and improved funnel
+                        metrics with built-in dashboards.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer (Simplified) -->
+    <footer class="relative z-10 py-12 px-6 border-t border-white/5 bg-[#0f0f12]/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center text-slate-500 text-sm">
+            <div class="flex items-center gap-2 mb-4 md:mb-0">
+                <span class="font-semibold text-slate-400">ResumeLens</span>
+                <span>© 2024</span>
+            </div>
+            <div class="flex gap-6">
+                <a class="hover:text-white transition-colors" href="#">Privacy</a>
+                <a class="hover:text-white transition-colors" href="#">Terms</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
